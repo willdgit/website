@@ -57,9 +57,14 @@ applySwitchState();
 
         // Loop through each navigation link
         navLinks.forEach(link => {
-            console.log(link.getAttribute('href'), currentPage)
+            console.log(link.getAttribute('href'))
+            console.log(currentPage)
             // Check if the link's href matches the current page URL
-            if (link.getAttribute('href') === currentPage) {
+            // if((link.getAttribute('href') === "/home") && currentPage == ""){
+            //     link.classList.add('active')
+            // }
+
+            if ((link.getAttribute('href') === currentPage) || ((link.getAttribute('href') === "/home") && currentPage == "")) {
                 link.classList.add('active'); // Add 'active' class to the current link
             } else {
                 link.classList.remove('active'); // Remove 'active' class from other links
