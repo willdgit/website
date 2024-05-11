@@ -64,7 +64,7 @@ applySwitchState();
             //     link.classList.add('active')
             // }
 
-            if ((link.getAttribute('href') === currentPage) || ((link.getAttribute('href') === "/home") && currentPage == "")) {
+            if ((link.getAttribute('href') === currentPage) || ((link.getAttribute('href') === "/home") && currentPage == "/")) {
                 link.classList.add('active'); // Add 'active' class to the current link
             } else {
                 link.classList.remove('active'); // Remove 'active' class from other links
