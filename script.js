@@ -1,12 +1,14 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-// Function to toggle dark/light mode
+//#region night mode toggle code
+
+//toggle dark/light mode
 function toggleDarkMode() {
     const rootElement = document.documentElement;
     rootElement.classList.toggle('night-mode');
 }
 
-// Function to save switch state to local storage
+//save switch state to local storage
 function saveSwitchState(state) {
     console.log("Saving: "+state)
     localStorage.setItem('darkModeEnabled', state);
@@ -19,7 +21,7 @@ function saveSwitchState(state) {
 
 const switchElement = document.getElementById('switch');
 const switchlabel = document.getElementById('switchlabel');
-// Function to retrieve switch state from local storage
+//retrieve switch state from local storage
 function getSwitchState() {
     var enabled = localStorage.getItem('darkModeEnabled') === 'true';
     if(enabled){
@@ -31,7 +33,7 @@ function getSwitchState() {
     return enabled;
 }
 
-// Function to apply switch state on page load
+//apply switch state on page load
 function applySwitchState() {
     const switchState = getSwitchState();
     if (switchState) {
@@ -40,40 +42,125 @@ function applySwitchState() {
     }
 }
 
-// Event listener for switch change
+//listen for switch change event
 switchElement.addEventListener('change', function() {
     const switchState = this.checked;
     saveSwitchState(switchState);
     toggleDarkMode();
 });
 
-// Apply switch state on page load
+//apply switch state every time the page loads
 applySwitchState();
 
-        // Function to set active link in the navbar
+    //set active link in navbar
     function setActiveLink() {
-        const currentPage = window.location.pathname; // Get the current page URL
-        const navLinks = document.querySelectorAll('.navbar a'); // Select all navigation links
+        //get pagename and all refrence for all navlinks
+        const currentPage = window.location.pathname;
+        const navLinks = document.querySelectorAll('.navbar a');
 
-        // Loop through each navigation link
+        //loop through each navlink
         navLinks.forEach(link => {
             console.log(link.getAttribute('href'))
             console.log(currentPage)
-            // Check if the link's href matches the current page URL
+            //check if the link's href matches the current page URL
             // if((link.getAttribute('href') === "/home") && currentPage == ""){
             //     link.classList.add('active')
             // }
 
             if ((link.getAttribute('href') === currentPage) || ((link.getAttribute('href') === "/home") && currentPage == "/")) {
-                link.classList.add('active'); // Add 'active' class to the current link
+                link.classList.add('active');
             } else {
-                link.classList.remove('active'); // Remove 'active' class from other links
+                link.classList.remove('active');
             }
         });
     }
+//#endregion
+
+
+//#region top button code
+
+    //scroll to top button code
+    let mybutton = document.getElementById("myBtn");
+    
+    //when the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+    
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.classList.add('show');
+        } else {
+            mybutton.classList.remove('show');
+        }
+    }
+    
+    function topFunction() {
+        //set the scroll position to the top
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+    mybutton.onclick = topFunction;
+
+    //#endregion
+
+
+//#region accordion code
+
+const toggleLinks = document.querySelectorAll('.toggle-link');
+
+    toggleLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const answer = link.nextElementSibling;
+
+            //close all other answers and reset icons
+            document.querySelectorAll('.answer').forEach(function(otherAnswer) {
+                if (otherAnswer !== answer) {
+                    otherAnswer.style.maxHeight = null;
+                    otherAnswer.classList.remove('active');
+                }
+            });
+
+            document.querySelectorAll('.toggle-link').forEach(function(otherLink) {
+                const downIcon = otherLink.querySelector('.down-icon');
+                const upIcon = otherLink.querySelector('.up-icon');
+                if (downIcon && upIcon) {
+                    downIcon.classList.remove('hidden');
+                    upIcon.classList.add('hidden');
+                }
+            });
+
+            //toggle the clicked answer and update icon
+            if (answer.style.maxHeight) {
+                answer.style.maxHeight = null;
+                answer.classList.remove('active');
+                const downIcon = link.querySelector('.down-icon');
+                const upIcon = link.querySelector('.up-icon');
+                if (downIcon && upIcon) {
+                    downIcon.classList.remove('hidden');
+                    upIcon.classList.add('hidden');
+                }
+            } else {
+                answer.style.maxHeight = answer.scrollHeight + "px";
+                answer.classList.add('active');
+                const downIcon = link.querySelector('.down-icon');
+                const upIcon = link.querySelector('.up-icon');
+                if (downIcon && upIcon) {
+                    downIcon.classList.add('hidden');
+                    upIcon.classList.remove('hidden');
+                }
+            }
+        });
+    });
+
+//#endregion
 
     setActiveLink();
 });
+
+//#region typewriter effect code (INCLUDES WINODW ONLOOAD)
 
 var TxtType = function(el, toRotate, period) {
     this.toRotate = toRotate;
@@ -125,9 +212,10 @@ window.onload = function() {
           new TxtType(elements[i], JSON.parse(toRotate), period);
         }
     }
-    // INJECT CSS
+    //INJECT CSS
     var css = document.createElement("style");
     css.type = "text/css";
     css.innerHTML = ".typewrite > .wrap { solid #fff}";
     document.body.appendChild(css);
 };
+//#endregion
