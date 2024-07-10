@@ -107,13 +107,17 @@ applySwitchState();
 
 //#region accordion code
 
+const toggleTexts = document.querySelectorAll('.toHigeToggle');
 const toggleLinks = document.querySelectorAll('.toggle-link');
 
     toggleLinks.forEach(function(link) {
+        const answer = link.nextElementSibling;
+        const header = link;
+        const headerText = link.textContent;
+
         link.addEventListener('click', function(event) {
             event.preventDefault();
 
-            const answer = link.nextElementSibling;
 
             //close all other answers and reset icons
             document.querySelectorAll('.answer').forEach(function(otherAnswer) {
@@ -131,9 +135,13 @@ const toggleLinks = document.querySelectorAll('.toggle-link');
                     upIcon.classList.add('hidden');
                 }
             });
+            
+            var text = headerText;
 
             //toggle the clicked answer and update icon
             if (answer.style.maxHeight) {
+                // toggleTexts.style.display = "none"
+                link.textContent = text;
                 answer.style.maxHeight = null;
                 answer.classList.remove('active');
                 const downIcon = link.querySelector('.down-icon');
@@ -143,6 +151,8 @@ const toggleLinks = document.querySelectorAll('.toggle-link');
                     upIcon.classList.add('hidden');
                 }
             } else {
+                // toggleTexts.style.display = "block"
+                // header.textContent = text + "is the core of ";
                 answer.style.maxHeight = answer.scrollHeight + "px";
                 answer.classList.add('active');
                 const downIcon = link.querySelector('.down-icon');
@@ -155,6 +165,8 @@ const toggleLinks = document.querySelectorAll('.toggle-link');
         });
     });
 
+
+    
 //#endregion
 
     setActiveLink();

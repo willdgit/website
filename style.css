@@ -462,17 +462,13 @@ body {
     font-size: 32px;
     padding: 16px;
     width: 220px;
-    transition: all 0.5s;
-    cursor: pointer;
     margin: 36px;
-    box-shadow: 0 10px 20px -8px rgba(0, 0, 0,.7);
-  }
-  
-  .contactButton{
+    box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.7);
     cursor: pointer;
     display: inline-block;
     position: relative;
-    transition: 0.5s;
+    text-decoration: none; /* Remove link underline */
+    transition: all 0.5s;
   }
   
   .contactButton:after {
@@ -481,12 +477,12 @@ body {
     opacity: 0;  
     top: 14px;
     right: -20px;
-    transition: 0.5s;
+    transition: opacity 0.5s, right 0.5s;
   }
   
-  .contactButton:hover{
+  .contactButton:hover {
     padding-right: 24px;
-    padding-left:8px;
+    padding-left: 8px;
   }
   
   .contactButton:hover:after {
@@ -616,6 +612,7 @@ body {
     padding: 2rem;
     margin: 0;
 }
+
 
 .hidden {
     display: none;
